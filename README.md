@@ -3,8 +3,10 @@ Npm2AUR
 
 Synchronize a list of npm packages with ArchLinux AUR.
 
-You can setup your user, password and packages in `~/.npm2aur` or in
-`/etc/npm2aur`
+You can setup your user, password and packages by creating a config file
+in `~/.npm2aur` or in `/etc/npm2aur`
+
+An example of custom npm2aur
 
     module.exports = {
       user: 'AUR-USERNAME',
@@ -27,7 +29,7 @@ You can setup your user, password and packages in `~/.npm2aur` or in
 
 Or you can do it with comand line options :
 
-    node bin/npm2aur --dry-run -u USER -p PASSWORD --pkg npm2arch:system,coffee-script
+    npm2aur --dry-run -u USER -p PASSWORD --pkg npm2arch:system,coffee-script
 
 
 Cli usage:
