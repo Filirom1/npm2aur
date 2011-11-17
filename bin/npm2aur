@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+var _         = require('underscore'),
+fs            = require('fs'),
+colors        = require('colors'),
+coffee        = require('coffee-script'),
+projectConfig = require('../lib/config'),
+sync          = require('../lib/sync'),
+optimist      = require('optimist')
+
+var argv = optimist.usage('Usage: $0 [--packages name[:category],name2,name3]')
+  .alias('user', 'u')
+  .alias('password', 'p')
+  .alias('packages', 'pkg')
+  .alias('dry-run', 'n')
+  .default('u', '')
+  .default('p', '')
+  .default('pkg', '')
+  .default('n', '')
+  .argv;
+
+// You can defines a list of packages to sync via the cli, 
+// by giving a comma separted list of packages name (name in the npm database).
+if(argv.packages){
+  // transform name1:category,name2,name3 into [{name1: category, name2: null, name3: null}]
+  argv.packages = argv.packages.split(',').map(function(pkg){
+    var trimmed =  pkg.replace(/^\s*/, '').replace(/\s*$/, '');
+    var arr = trimmed.split(':');
+    var o = {}
+    o[arr[0]] = arr[1] || null;
+    return o;
+  });
+}
+
+// Load home and global config
+var userConfig = {};
+if(fs.statSync(projectConfig.homeConfig).isFile()){
+  userConfig = require(projectConfig.homeConfig);
+}else if(fs.statSync(projectConfig.globalConfig).isFile()){
+  userConfig = require(projectConfig.globalConfig);
+}
+config = _.extend({}, projectConfig, userConfig, argv)
+
+// normalize packages into [/* {npmName: category or null} */]
+config.packages = config.packages.map(function(pkg){
+  if(typeof pkg === 'object') {
+    return pkg;
+  }else if(typeof pkg === 'string'){
+    o = {};
+    o[pkg]=null;
+    return o;
+  }
+});
+
+sync(config, function(err, pkg, oldVersion, newVersion) {
+  if(err) {
+    console.log(pkg + ' ✗'.red);
+    console.error(err.message);
+    optimist.showHelp();
+    process.exit(-1);
+  }
+  if(!newVersion){
+    return console.log((pkg + ' [no change]').grey);
+  }
+  console.log(pkg + ' ' + (oldVersion||'') + ' → ' + newVersion + ' ✓'.green);
+})
+
