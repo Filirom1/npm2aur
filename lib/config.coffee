@@ -18,17 +18,14 @@ module.exports =
     {'coffee-script':'devel'},
     {'jshint': 'devel'},
     {'jslint': 'devel'},
-    {'serve': 'devel'},
     {'mongodb-rest': 'devel'},
     {'requirejs': 'devel'},
-    {'UglifyJS': 'devel'},
+    {'uglify-js': 'devel'},
     {'vows': 'devel'},
     {'stylus': 'devel'},
-    {'less': 'devel'},
-    {'node-browserify': 'devel'},
-    {'docco': 'devel'},
+    {'browserify': 'devel'},
     {'connect-docco': 'devel'},
     {'forever': 'devel'},
     {'markdown': 'devel'},
-    {'node-http-proxy': 'devel'}
+    {'http-proxy': 'devel'}
   ]

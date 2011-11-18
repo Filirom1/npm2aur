@@ -59,7 +59,7 @@ sync(config, function(err, pkg, oldVersion, newVersion) {
     optimist.showHelp();
     process.exit(-1);
   }
-  if(!newVersion){
+  if(oldVersion === newVersion){
     return console.log((pkg + ' [no change]').grey);
   }
   console.log(pkg + ' ' + (oldVersion||'') + ' → ' + newVersion + ' ✓'.green);

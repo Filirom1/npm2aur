@@ -1,8 +1,8 @@
-fs            = require 'fs'
-_             = require 'underscore'
-npm           = require 'npm'
-npm2arch      = require 'npm2arch'
-aur           = require 'aur'
+fs                    = require 'fs'
+_                     = require 'underscore'
+npm                   = require 'npm'
+{npm2arch, createPkg} = require 'npm2arch'
+aur                   = require 'aur'
 
 module.exports = (config, cb) ->
   cb or= (err)->
@@ -22,8 +22,8 @@ module.exports = (config, cb) ->
           return sync npmName, category, null, npmVersion, config, cb if err and err.message is 'No results found'
           return cb err if err # otherwise handle the error
           aurVersion = data.Version.split('-')[0]
-          return sync npmName, category, aurVersion, npmVersion, config, cb if npmVersion is not aurVersion
-          cb null, npmName, null
+          return sync npmName, category, aurVersion, npmVersion, config, cb if npmVersion != aurVersion
+          cb null, npmName, aurVersion, npmVersion
 
 sync = (npmName, category, aurVersion, npmVersion, config, cb) ->
   if config['dry-run']
@@ -33,6 +33,10 @@ sync = (npmName, category, aurVersion, npmVersion, config, cb) ->
         return cb err, npmName if err
         return cb null, npmName, aurVersion, npmVersion, data
   else
-    aur.publish config.user, config.password, npmName, category, (err, data) ->
+    createPkg npmName, ['--source'], verbose: false, (err, pkgFile) ->
       return cb err if err
-      return cb null, npmName, aurVersion, npmVersion, data
+      aur.publish config.user, config.password, pkgFile, category, (err, data) ->
+        return cb err, npmName if err
+        fs.unlink pkgFile, (err)->
+          return cb err, npmName if err
+          return cb null, npmName, aurVersion, npmVersion, data
