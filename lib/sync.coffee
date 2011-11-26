@@ -27,6 +27,7 @@ module.exports = (config, cb) ->
 
 sync = (npmName, category, aurVersion, npmVersion, config, cb) ->
   if config['dry-run']
+    console.warn "Nothing will be done, running in --dry-run mode"
     aur.login config.user, config.password, (err, data) ->
       return cb err, npmName if err
       npm.commands.view [npmName], true, (err, data) ->
