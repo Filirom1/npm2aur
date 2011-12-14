@@ -27,5 +27,17 @@ module.exports =
     {'connect-docco': 'devel'},
     {'forever': 'devel'},
     {'markdown': 'devel'},
-    {'http-proxy': 'devel'}
+    {'http-proxy': 'devel'},
+    {'buster': 'devel'},
+    {'node.io': 'devel'},
+    #{'log.io': 'devel'},
+    {'jade': 'devel'},
+    {'calipso': 'devel'},
+    {'less': 'devel'},
+    {'jasmine-dom': 'devel'},
+    {'jasmine-node': 'devel'},
+    {'jasmine-runner': 'devel'},
+    {'qunit': 'devel'},
+    {'nodeunit': 'devel'},
+    #{'serve': 'devel'}
   ]
