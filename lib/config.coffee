@@ -30,7 +30,7 @@ module.exports =
     {'http-proxy': 'devel'},
     {'buster': 'devel'},
     {'node.io': 'devel'},
-    #{'log.io': 'devel'},
+    {'log.io': 'devel'},
     {'jade': 'devel'},
     {'calipso': 'devel'},
     {'less': 'devel'},
@@ -39,5 +39,8 @@ module.exports =
     {'jasmine-runner': 'devel'},
     {'qunit': 'devel'},
     {'nodeunit': 'devel'},
+    {'handlebars': 'devel'},
+    {'jsontool': 'devel'},
+    {'tap': 'devel'},
     #{'serve': 'devel'}
   ]
