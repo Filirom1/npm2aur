@@ -29,8 +29,7 @@ module.exports =
     {'markdown': 'devel'},
     {'http-proxy': 'devel'},
     {'buster': 'devel'},
-    #{'mocha': 'devel'},
-#    {'node.io': 'devel'},
+    {'node.io': 'devel'},
     {'log.io': 'devel'},
     {'jade': 'devel'},
     {'calipso': 'devel'},
@@ -47,5 +46,8 @@ module.exports =
     {'universal-jst': 'devel'},
     {'stripcolorcodes': 'devel'},
     {'spaseo': 'devel'},
+    {'handlebars': 'devel'},
+    {'jsontool': 'devel'},
+    {'tap': 'devel'},
     #{'serve': 'devel'}
   ]
