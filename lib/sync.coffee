@@ -39,7 +39,7 @@ sync = (npmName, category, aurVersion, npmVersion, config, cb) ->
         return cb err, npmName if err
         return cb null, npmName, aurVersion, npmVersion, data
   else
-    console.log('createPkg', npmName)
+    #console.log('createPkg', npmName)
     createPkg npmName, ['--source'], verbose: false, (err, pkgFile) ->
       return cb err if err
       #console.log('publish', npmName)
